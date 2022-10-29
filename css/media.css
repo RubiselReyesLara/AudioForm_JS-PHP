@@ -1,0 +1,16 @@
+@media (max-width: 600px) {
+    body{
+        display: block;
+    }
+
+    .div-principal {
+        width: 100%;
+        height: 100vh;
+        border-radius: 0;
+        margin-top: 0;
+    }
+
+    #div-grabacion{
+        flex-direction: column;
+    }
+}

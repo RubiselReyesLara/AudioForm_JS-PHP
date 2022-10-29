@@ -1,0 +1,122 @@
+body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    font-family: 'Nollasans', sans-serif;
+    font-size: 20px;
+    background: rgb(185, 233, 230);
+}
+
+/* CAJA PRINCIPAL */
+.div-principal {
+    background-color: rgb(255, 255, 255);
+    width: 80%;
+    height: 80vh;
+    margin-top: 10vh;
+
+    display: flex;
+    flex-direction: column;
+
+    border-radius: 30px;
+    
+    box-shadow: 2px 0px 9px -1px rgba(0,0,0,0.4);
+    -webkit-box-shadow: 2px 0px 9px -1px rgba(0,0,0,0.4);
+    -moz-box-shadow: 2px 0px 9px -1px rgba(0,0,0,0.4);
+}
+
+/* DIV TITULO */
+#div-titulo {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    height: 20%;
+    /* border: 1px solid black; */
+}
+
+/* DIV FRASE */
+#div-frase{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    word-wrap: break-word;
+    height: 25%;
+    /* border: 1px solid black; */
+    padding: 0px 100px 0px 100px;
+}
+
+#p-frase{
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+
+/* DIV GRABAR */
+#div-grabar, #div-grabacion{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    /* border: 1px solid black; */
+}
+
+/* DIV GRABAR */
+#div-grabar{
+    height: 25%;
+}
+
+#span-tiempo{
+    margin-top: 10px;
+    font-size: 15px;
+}
+
+/* DIV GRABACION */
+#div-grabacion{
+    height: calc(100% - 70%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+}
+
+#div-respuesta, #div-siguiente{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+    height: 100%;
+    /* border: 1px solid black; */
+}
+
+/* BOTONES */
+#btn-grabar, #btn-siguiente{
+	border: none;
+	padding: 0;
+	font: inherit;
+	cursor: pointer;
+	outline: inherit;
+}
+
+#btn-grabar {
+	color: rgb(1, 58, 31);
+    background-color: #4CA87C;
+    border-radius: 50%;
+    width: 110px;
+    height: 130px;
+}
+
+#btn-siguiente{
+	color: rgb(58, 19, 1);
+    background-color: #EA6F34;
+    border-radius: 20px;
+    width: 80px;
+    height: 80px;
+}
+
+#fa-angles-right{
+    color: white;
+}
+
+
+
+
