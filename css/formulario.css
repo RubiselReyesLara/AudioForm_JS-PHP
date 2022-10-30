@@ -1,0 +1,113 @@
+#formulario {
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+	padding-top: 20px;
+}
+
+label{
+	font-size: 16px;
+	padding-top: 10px;
+	padding-bottom: 5px;
+}
+
+#formulario > input{
+    text-align: center;
+    font-size: 15px;
+    color: rgb(6, 40, 6);
+    background-color: rgb(215, 255, 217);
+    border: none;
+	border-radius: 5px;
+	width: 200px;
+	height: 25px;
+}
+
+#formulario > input:focus{
+    border: none;
+	outline: none;
+}
+
+#formulario > p{
+	margin:5px;
+	font-size: 16px;
+}
+
+#formulario > span{
+	font-size: 25px;
+    font-weight: 700;
+}
+
+#formulario > select[name="pais"],
+#formulario > select[name="estado"],
+#formulario > select[name="ciudad"]{
+	font-size: 15px;
+    color: rgb(6, 40, 6);
+    border: none;
+    background-color: rgb(200 247 202);
+	width: 200px;
+	height: 25px;
+	border-radius: 5px;
+	text-align: center;
+}
+
+#formulario > select[name="genero"]{
+	font-size: 15px;
+    color: rgb(6, 40, 6);
+    border: none;
+    background-color: rgb(200 247 202);
+	width: 60px;
+	height: 25px;
+	border-radius: 5px;
+	text-align: center;
+}
+
+#formulario > input[type=submit]{
+    font-weight: 700;
+    font-size: 16px;
+    background-color: rgb(232, 235, 82);
+    color: rgb(55, 51, 2);
+	margin-top: 10px;
+	height: 28px;
+	width: 150px;
+}
+
+#formulario > input[type=submit]:hover{
+    cursor: pointer;
+    background-color: rgb(209, 211, 71);
+    color: rgb(55, 51, 2);
+}
+
+
+#div-mensaje-final {
+	padding: 100px;
+    text-align: center;
+    height: 100%;
+}
+
+#div-mensaje-final > i{
+	display: block;
+	font-size: 70px;
+	color: #19ccaf;
+	margin: 20px;
+}
+
+#div-mensaje-final > span{
+	margin-top: 100px;
+	font-weight: 700;
+}
+
+#div-mensaje-final > p{
+	font-size: 15px;
+}
+
+#p-firma{
+    font-size: 12px;
+	padding-top: 100px;
+}
+
+#p-mensaje{
+	font-size: 15px;
+}
+
+
+

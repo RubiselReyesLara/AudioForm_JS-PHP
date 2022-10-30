@@ -7,10 +7,42 @@ if(!file_exists($ruta)){
 }
 
 if(isset($_POST)){
+    // Llamado a MySQL
+    $servername = "localhost";
+    $username = "root";
+    $password = "";
+    $dbname = "usuariosformularios";
+    
+    // Create connection
+    $conexion = new mysqli($servername, $username, $password, $dbname);
+    
+    // Check connection
+    if ($conexion->connect_error) {
+      die("Conexion fallida: " . $conexion->connect_error);
+    }
+    
+    // prepare and bind
+    $stmt = $conexion->prepare("CALL guardarUsuario(?, ?, ?, ?, ?, ?)");
+    $stmt->bind_param("issssi", $cp, $pais, $estado, $ciudad, $genero, $edad);
+    
+    // set parameters and execute
+    $cp = $_POST['CP'];
+    $pais = $_POST['pais'];
+    $estado = $_POST['estado'];
+    $ciudad = $_POST['ciudad'];
+    $genero = $_POST['genero'];
+    $edad = $_POST['edad'];
+
+    $stmt->execute();
+
+    $result = $stmt->get_result();
+
+    $row = $result->fetch_assoc();
+    $id_usuario = $row['last_insert_id()'];
+
+    $stmt->close();
+
     // Guardardo de los audios en el servidor
-    $fi = new FilesystemIterator($_SERVER['DOCUMENT_ROOT'] . "/respuestasSubidas/",  // Segun el numero de carpetas en el servidor
-                             FilesystemIterator::SKIP_DOTS);                             // sera el numero id del usuario.
-    $id_usuario = iterator_count($fi);
     $nuevaRuta = $_SERVER['DOCUMENT_ROOT'] . "/respuestasSubidas/".$id_usuario;
     mkdir($nuevaRuta);
 
@@ -28,9 +60,5 @@ if(isset($_POST)){
         
     echo $id_usuario; // Retorno al front end
 
-    // Llamado a MySQL
-    echo $_POST['ciudad'];
 }
-
-
 ?>

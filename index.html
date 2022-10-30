@@ -3,11 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <link href="http://fonts.cdnfonts.com/css/nollasans" rel="stylesheet">
+    <link href="http://fonts.cdnfonts.com/css/open-sans" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/estilos.css"/>
     <link rel="stylesheet" href="css/media.css"/>
     <link rel="stylesheet" href="css/all.min.css"/>
+    <link rel="stylesheet" href="css/formulario.css"/>
     <title>Formulario</title>
 </head>
 <body>
@@ -25,25 +26,22 @@
 
         <div id="div-grabar">
             <button id="btn-grabar"><i id='iconoGrabar' class="fa-solid fa-microphone fa-3x"></i></button>
-            <span id="span-tiempo">00 - 30s</span>
+            <span id="span-tiempo">00 • 30s</span>
         </div>
 
         <div id="div-grabacion">
             <div id="div-respuesta">
-                <!-- <audio controls>
-                    <source src="horse.ogg" type="audio/ogg">
-                    <source src="horse.mp3" type="audio/mpeg">
-                Your browser does not support the audio element.
-                </audio> -->
             </div>
             <div id="div-siguiente">
                 <button id="btn-siguiente"><i class="fa-solid fa-angles-right fa-2x"></i></button>
+                <i id="puntero1" class="fa-solid fa-circle"></i>
+                <i id="puntero2" class="fa-solid fa-circle"></i>
+                <i id="puntero3" class="fa-solid fa-circle"></i>
             </div>
         </div>
 
     </div>
 
-<!-- <script src="https://kit.fontawesome.com/ee5ac0cc2e.js" crossorigin="anonymous"></script> -->
-<script type="module" src="./scripts/front.js"></script>
+<script type="module" src="./scripts/inicial.js"></script>
 </body>
 </html>

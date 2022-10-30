@@ -5,6 +5,7 @@ import FRASES from './frases.js';
 let numeroFrase = 0;
 let segundos = 0;
 
+let btnGrabar;
 let divPrincipal;
 let spanTiempo;
 let pFrase;
@@ -24,8 +25,11 @@ let temporizador;
 let blobArreglo = [];
 let blobAudio;
 
-function GrabarAudio(div_Principal, span_Tiemppo, p_frase, div_respuesta, iconoBtnGrabar){
+function GrabarAudio(btn_Grabar, div_Principal, span_Tiemppo, p_frase, div_respuesta, iconoBtnGrabar){
+
     if(!estadoGrabando){
+
+        btnGrabar = btn_Grabar;
         divPrincipal = div_Principal;
         spanTiempo = span_Tiemppo
         pFrase = p_frase;
@@ -33,7 +37,7 @@ function GrabarAudio(div_Principal, span_Tiemppo, p_frase, div_respuesta, iconoB
         icono = iconoBtnGrabar;
 
         segundos = 0;
-        spanTiempo.textContent = '00 - 30s';
+        spanTiempo.textContent = '00 • 30s';
 
         estadoGrabando = true;
         grabacionLista = false;
@@ -41,7 +45,9 @@ function GrabarAudio(div_Principal, span_Tiemppo, p_frase, div_respuesta, iconoB
 
         divRespuesta.innerHTML = '';
 
+        btnGrabar.style.backgroundColor = 'tomato';
         icono.classList = 'fa-solid fa-stop fa-3x';
+        icono.style.color = '#8A3624';
 
         const PERMISO_NAVEGADOR = navigator.mediaDevices.getUserMedia({
             audio: true, video: false,
@@ -63,7 +69,9 @@ function GrabarAudio(div_Principal, span_Tiemppo, p_frase, div_respuesta, iconoB
                     grabacionLista = true;
                     estadoGrabando = false;
 
+                    btnGrabar.style.backgroundColor = '#4CA87C';
                     icono.classList = 'fa-solid fa-rotate-right fa-3x';
+                    icono.style.color = '#013A1F';
                     
                     grabacion.stop();
                     streamActual.getAudioTracks()[0].stop();
@@ -74,8 +82,10 @@ function GrabarAudio(div_Principal, span_Tiemppo, p_frase, div_respuesta, iconoB
     } else {
         segundos = 0;
         grabacionLista = true;
-        estadoGrabando = false;
+        estadoGrabando = false;                    
+        btnGrabar.style.backgroundColor = '#4CA87C';
         icono.classList = 'fa-solid fa-rotate-right fa-3x';
+        icono.style.color = '#013A1F';
         clearInterval(temporizador);
         clearInterval(cronometro);
 
@@ -88,9 +98,9 @@ function GrabarAudio(div_Principal, span_Tiemppo, p_frase, div_respuesta, iconoB
 function medicion(){
     segundos++;
     if(segundos < 10){
-        spanTiempo.textContent = `0${ segundos } - 30s`;
+        spanTiempo.textContent = `0${ segundos } • 30s`;
     } else {
-        spanTiempo.textContent = `${ segundos } - 30s`;
+        spanTiempo.textContent = `${ segundos } • 30s`;
     }
 }
 
@@ -106,10 +116,10 @@ function mostrarAudio(blob){
 }
 
 
-function Siguiente(){
+function Siguiente(PUNTEROS){
     if(grabacionLista && numeroFrase < 2) {
         segundos = 0;
-        spanTiempo.textContent = '00 - 30s';
+        spanTiempo.textContent = '00 • 30s';
 
         grabacionLista = false;
         blobArreglo.push(blobAudio); // Almacenaje de cada audio
@@ -120,6 +130,12 @@ function Siguiente(){
         divRespuesta.innerHTML = '';
 
         numeroFrase++;
+
+        for(let i = 0; i < numeroFrase; i++){
+            PUNTEROS[i].style.color = '#7bff7b';
+        }
+        PUNTEROS[numeroFrase].style.color = '#437e43';
+
     } else if(grabacionLista && numeroFrase == 2){
         blobArreglo.push(blobAudio);
         console.log('Done!');

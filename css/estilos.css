@@ -3,15 +3,15 @@ body {
     padding: 0;
     display: flex;
     justify-content: center;
-    font-family: 'Nollasans', sans-serif;
+    font-family: 'Open Sans', sans-serif;
     font-size: 20px;
-    background: rgb(185, 233, 230);
+    background: rgb(201, 255, 248);
 }
 
 /* CAJA PRINCIPAL */
 .div-principal {
     background-color: rgb(255, 255, 255);
-    width: 80%;
+    width: 60%;
     height: 80vh;
     margin-top: 10vh;
 
@@ -42,7 +42,7 @@ body {
     word-wrap: break-word;
     height: 25%;
     /* border: 1px solid black; */
-    padding: 0px 100px 0px 100px;
+    padding: 0px 60px 0px 60px;
 }
 
 #p-frase{
@@ -98,11 +98,11 @@ body {
 }
 
 #btn-grabar {
-	color: rgb(1, 58, 31);
+	color: #013A1F;
     background-color: #4CA87C;
     border-radius: 50%;
-    width: 110px;
-    height: 130px;
+    width: 100px;
+    height: 100px;
 }
 
 #btn-siguiente{
@@ -111,6 +111,7 @@ body {
     border-radius: 20px;
     width: 80px;
     height: 80px;
+	margin-right: calc(50% - 100px);
 }
 
 #fa-angles-right{
@@ -118,5 +119,12 @@ body {
 }
 
 
+#puntero1, #puntero2, #puntero3{
+	margin: 2px;
+	font-size: 12px;
+	color: #7bff7b;
+}
 
-
+#puntero1{
+	color: #437e43;
+}

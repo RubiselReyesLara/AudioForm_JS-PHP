@@ -1,11 +1,14 @@
+import estados from './estados.json' assert { type: 'json' };
+import Final from "./final.js";
 
 export default function GenerarFormulario(divPrincipal, Blobs){
-
-    console.log(Blobs[0]);
+    const GENEROS = ['H','M','NB'];
+    let ciudades = estados.Aguascalientes;
 
     // Form
     const FORM = document.createElement('form');
-    FORM.onsubmit = subirInfo.bind(null, FORM, Blobs);
+    FORM.id = 'formulario';
+    FORM.onsubmit = subirInfo.bind(null, FORM, Blobs, divPrincipal);
 
     // Titulo
     const spanTitulo = document.createElement('span');
@@ -16,40 +19,94 @@ export default function GenerarFormulario(divPrincipal, Blobs){
     pInstruccion.textContent = 'Por favor llene el siguiente formulario';
 
     // CP
+    const labelCP = document.createElement('label');
+    labelCP.textContent = 'Código Postal: ';
+    labelCP.setAttribute('for', 'CP');
+
     const inputCP = document.createElement('input');
-    inputCP.setAttribute('type', 'text');
+    inputCP.setAttribute('type', 'number');
     inputCP.setAttribute('name', 'CP');
-    inputCP.setAttribute('placeholder', 'Código Postal');
+    inputCP.setAttribute('placeholder', '93990');
 
     // Pais
-    const inputPais = document.createElement('input');
-    inputPais.setAttribute('type', 'text');
-    inputPais.setAttribute('name', 'pais');
-    inputPais.setAttribute('placeholder', 'País');
+    const labelPais = document.createElement('label');
+    labelPais.textContent = 'País: ';
+    labelPais.setAttribute('for', 'pais');
+
+    const selectPais = document.createElement('select');
+    selectPais.setAttribute('name', 'pais');
+
+    const option = document.createElement('option');
+    option.value = 'Mexico';
+    option.textContent = 'México';
+    selectPais.append(option);
 
     // Estado
-    const inputEstado = document.createElement('input');
-    inputEstado.setAttribute('type', 'text');
-    inputEstado.setAttribute('name', 'estado');
-    inputEstado.setAttribute('placeholder', 'Estado');
+    const labelEstado = document.createElement('label');
+    labelEstado.textContent = 'Estado: ';
+    labelEstado.setAttribute('for', 'estado');
+
+    const selectEstado = document.createElement('select');
+    selectEstado.setAttribute('name', 'estado');
+
+    Object.entries(estados).forEach((cadaEstado) => {
+        const [key] = cadaEstado;
+        const option = document.createElement('option');
+        option.value = key;
+        option.textContent = key;
+        selectEstado.append(option);
+    });
+
+    selectEstado.addEventListener("change", () => {
+        selectCiudad.innerHTML = '';
+        ciudades = estados[selectEstado.value];
+        for(let i = 0; i < ciudades.length; i++){
+            const option = document.createElement('option');
+            option.value = ciudades[i];
+            option.textContent = ciudades[i];
+            selectCiudad.append(option);
+        }
+    });
 
     // Ciudad
-    const inputCiudad = document.createElement('input');
-    inputCiudad.setAttribute('type', 'text');
-    inputCiudad.setAttribute('name', 'ciudad');
-    inputCiudad.setAttribute('placeholder', 'Ciudad');
+    const labelCiudad = document.createElement('label');
+    labelCiudad.textContent = 'Ciudad: ';
+    labelCiudad.setAttribute('for', 'ciudad');
+
+    const selectCiudad = document.createElement('select');
+    selectCiudad.setAttribute('name', 'ciudad');
+
+    for(let i = 0; i < 3; i++){
+        const option = document.createElement('option');
+        option.value = ciudades[i];
+        option.textContent = ciudades[i];
+        selectCiudad.append(option);
+    }
 
     // Genero
-    const inputGenero = document.createElement('input');
-    inputGenero.setAttribute('type', 'text');
-    inputGenero.setAttribute('name', 'genero');
-    inputGenero.setAttribute('placeholder', 'Genero');
+    const labelGenero = document.createElement('label');
+    labelGenero.textContent = 'Género: ';
+    labelGenero.setAttribute('for', 'genero');
+
+    const selectedGenero = document.createElement('select');
+    selectedGenero.setAttribute('name', 'genero');
+
+    for(let i = 0; i < 3; i++){
+        const option = document.createElement('option');
+        option.value = GENEROS[i];
+        option.textContent = GENEROS[i];
+        selectedGenero.append(option);
+    }
 
     // Edad
+    const labelEdad = document.createElement('label');
+    labelEdad.textContent = 'Edad: ';
+    labelEdad.setAttribute('for', 'edad');
+
     const inputEdad = document.createElement('input');
     inputEdad.setAttribute('type', 'number');
     inputEdad.setAttribute('name', 'edad');
-    inputEdad.setAttribute('placeholder', 'Edad');
+    inputEdad.setAttribute('placeholder', '20');
 
     // Boton Submit
     const submit = document.createElement('input');
@@ -58,29 +115,51 @@ export default function GenerarFormulario(divPrincipal, Blobs){
 
     FORM.append(spanTitulo);
     FORM.append(pInstruccion);
+
+    FORM.append(labelCP);
     FORM.append(inputCP);
-    FORM.append(inputPais);
-    FORM.append(inputEstado);
-    FORM.append(inputCiudad);
-    FORM.append(inputGenero);
+
+    FORM.append(labelPais);
+    FORM.append(selectPais);
+
+    FORM.append(labelEstado);
+    FORM.append(selectEstado);
+
+    FORM.append(labelCiudad);
+    FORM.append(selectCiudad);
+
+    FORM.append(labelGenero);
+    FORM.append(selectedGenero);
+
+    FORM.append(labelEdad);
     FORM.append(inputEdad);
+
     FORM.append(submit);
 
     divPrincipal.appendChild(FORM);
+
 }
 
-function subirInfo(FORM, arregloBlobs){
+function subirInfo(FORM, arregloBlobs, divPrincipal){
     const DATOS = new FormData(FORM);
-    DATOS.append('dato_audio1', arregloBlobs[0], 1);
-    DATOS.append('dato_audio2', arregloBlobs[1], 2);
-    DATOS.append('dato_audio3', arregloBlobs[2], 3);
 
-    fetch('subirAudio.php', {
-        method: 'POST',
-        body: DATOS
-    }).then(respuesta => respuesta.text()).then(dato => {
-        console.log(dato);
-    });
+    if(DATOS.get('CP').length > 0 && DATOS.get('CP').length < 10 &&
+         DATOS.get('edad').length > 0 && DATOS.get('edad').length < 3){
+
+        DATOS.append('dato_audio1', arregloBlobs[0], 1);
+        DATOS.append('dato_audio2', arregloBlobs[1], 2);
+        DATOS.append('dato_audio3', arregloBlobs[2], 3);
+
+        fetch('subirAudio.php', {
+            method: 'POST',
+            body: DATOS
+        }).then(respuesta => respuesta.text()).then(ID => {
+            console.log(ID);
+            Final(divPrincipal, ID);
+        });
+    } else {
+        alert('Por favor, ingrese correctamente su CP y Edad');
+    }
 
     return false;
 }
