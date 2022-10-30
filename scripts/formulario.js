@@ -20,7 +20,7 @@ export default function GenerarFormulario(divPrincipal, Blobs){
 
     // CP
     const labelCP = document.createElement('label');
-    labelCP.textContent = 'Código Postal: ';
+    labelCP.textContent = 'Código postal: ';
     labelCP.setAttribute('for', 'CP');
 
     const inputCP = document.createElement('input');
@@ -76,7 +76,7 @@ export default function GenerarFormulario(divPrincipal, Blobs){
     const selectCiudad = document.createElement('select');
     selectCiudad.setAttribute('name', 'ciudad');
 
-    for(let i = 0; i < 3; i++){
+    for(let i = 0; i < ciudades.length; i++){
         const option = document.createElement('option');
         option.value = ciudades[i];
         option.textContent = ciudades[i];
@@ -158,7 +158,7 @@ function subirInfo(FORM, arregloBlobs, divPrincipal){
             Final(divPrincipal, ID);
         });
     } else {
-        alert('Por favor, ingrese correctamente su CP y Edad');
+        alert('Tiene algunos campos sin llenar, puede ser el de Código Postal, o el de Edad. Verifique por favor');
     }
 
     return false;
