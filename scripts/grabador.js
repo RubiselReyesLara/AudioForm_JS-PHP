@@ -28,33 +28,35 @@ let blobAudio;
 function GrabarAudio(btn_Grabar, div_Principal, span_Tiemppo, p_frase, div_respuesta, iconoBtnGrabar){
 
     if(!estadoGrabando){
-
-        btnGrabar = btn_Grabar;
-        divPrincipal = div_Principal;
-        spanTiempo = span_Tiemppo
-        pFrase = p_frase;
-        divRespuesta = div_respuesta;
-        icono = iconoBtnGrabar;
-
-        segundos = 0;
-        spanTiempo.textContent = '00 • 30s';
-
-        estadoGrabando = true;
-        grabacionLista = false;
-        blobAudio = null;
-
-        divRespuesta.innerHTML = '';
-
-        btnGrabar.style.backgroundColor = 'tomato';
-        icono.classList = 'fa-solid fa-stop fa-3x';
-        icono.style.color = '#8A3624';
-
         const PERMISO_NAVEGADOR = navigator.mediaDevices.getUserMedia({
             audio: true, video: false,
         });
 
         PERMISO_NAVEGADOR.then(
+
             (stream) => {
+
+                btnGrabar = btn_Grabar;
+                divPrincipal = div_Principal;
+                spanTiempo = span_Tiemppo
+                pFrase = p_frase;
+                divRespuesta = div_respuesta;
+                icono = iconoBtnGrabar;
+        
+                segundos = 0;
+                spanTiempo.textContent = '00 • 30s';
+        
+                estadoGrabando = true;
+                grabacionLista = false;
+                blobAudio = null;
+        
+                divRespuesta.innerHTML = '';
+        
+                btnGrabar.style.backgroundColor = 'tomato';
+                icono.classList = 'fa-solid fa-stop fa-3x';
+                icono.style.color = '#8A3624';
+
+
                 contextoAudio = new AudioContext();
                 streamActual = stream;
                 entrada = contextoAudio.createMediaStreamSource(stream);
