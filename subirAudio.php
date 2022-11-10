@@ -1,31 +1,12 @@
 <?php
 
 // Checar si el servidor tiene la carpeta de respuestas
-$ruta = $_SERVER['DOCUMENT_ROOT'] . "/respuestasSubidas/";
+$ruta = $_SERVER['DOCUMENT_ROOT'] . "/Respuestas_Subidas/";
 if(!file_exists($ruta)){
-    mkdir($_SERVER['DOCUMENT_ROOT'] . "/respuestasSubidas/");
+    mkdir($_SERVER['DOCUMENT_ROOT'] . "/Respuestas_Subidas/");
 }
 
 if(isset($_POST)){
-    // Llamado a MySQL
-    $servername = "localhost";
-    $username = "root";
-    $password = "";
-    $dbname = "usuariosformularios";
-    
-    // Create connection
-    $conexion = new mysqli($servername, $username, $password, $dbname);
-    
-    // Check connection
-    if ($conexion->connect_error) {
-      die("Conexion fallida: " . $conexion->connect_error);
-    }
-    
-    // prepare and bind
-    $stmt = $conexion->prepare("CALL guardarUsuario(?, ?, ?, ?, ?, ?)");
-    $stmt->bind_param("issssi", $cp, $pais, $estado, $ciudad, $genero, $edad);
-    
-    // set parameters and execute
     $cp = $_POST['CP'];
     $pais = $_POST['pais'];
     $estado = $_POST['estado'];
@@ -33,17 +14,35 @@ if(isset($_POST)){
     $genero = $_POST['genero'];
     $edad = $_POST['edad'];
 
-    $stmt->execute();
 
-    $result = $stmt->get_result();
+       // Llamado a MySQL
+    $servidor = "localhost";
+    $usuario = "cmpapele_ederqwer";
+    $password = "asdqwe123";
+    $db = "cmpapele_usuarios_audio";
+    
+    // Create connection
+    $conexion = new mysqli($servidor, $usuario, $password, $db);
+    
+    // Check connection
+    if ($conexion->connect_error) {
+      die("Conexion fallida: " . $conexion->connect_error);
+    }
+    
+    
+    $sql = 'INSERT INTO usuarios (cp, pais, estado, ciudad, genero, edad) 
+              VALUES ('.$cp.', "'.$pais.'","'.$estado.'","'.$ciudad.'","'.$genero.'",'.$edad.')';
 
-    $row = $result->fetch_assoc();
-    $id_usuario = $row['last_insert_id()'];
+    if ($conexion->query($sql)) {
+      $id_usuario = $conexion->insert_id;
+    } else {
+      echo "Error: " . $sql . "<br>" . $conexion->error;
+    }
 
-    $stmt->close();
+    $conexion->close();
 
     // Guardardo de los audios en el servidor
-    $nuevaRuta = $_SERVER['DOCUMENT_ROOT'] . "/respuestasSubidas/".$id_usuario;
+    $nuevaRuta = $_SERVER['DOCUMENT_ROOT'] . "/Respuestas_Subidas/".$id_usuario;
     mkdir($nuevaRuta);
 
     $nombreTemporal1 = $_FILES['dato_audio1']['tmp_name'];

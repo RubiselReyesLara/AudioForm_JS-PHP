@@ -1,6 +1,7 @@
-import Recorder from './recorder.js';
 import GenerarFormulario from './formulario.js';
 import FRASES from './frases.js';
+
+var AudioContext = window.AudioContext || window.webkitAudioContext;
 
 let numeroFrase = 0;
 let segundos = 0;
@@ -62,7 +63,6 @@ function GrabarAudio(btn_Grabar, div_Principal, span_Tiemppo, p_frase, div_respu
                 entrada = contextoAudio.createMediaStreamSource(stream);
 
                 grabacion = new Recorder(entrada, { numChannels: 1 });
-
                 grabacion.record();
 
                 cronometro = setInterval(medicion, 1000);
